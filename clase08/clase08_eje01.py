@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-f = open('petfile.txt','w')
+f = open('demofile.txt','w')
 
 pet = {'Name':'','Animal':'','Race':'','Age':''}
 
@@ -11,7 +11,7 @@ for i in pet.keys():
 
 f.write(pet['Name'] +',' + pet['Animal'] + ',' + pet['Race'] + ',' + pet['Age'] + '\n')
 f.close()
-print()
-r = open('petfile.txt','r')
+
+r = open('demofile.txt','r')
 print(r.read())
 r.close()
