@@ -1,0 +1,1 @@
+obama,dog,lab,12
