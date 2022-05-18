@@ -64,9 +64,38 @@ for clave, valor in colores.items():
 - `readlines` leer cada línea
 - `seek` - acceder a una ubicación en particular, es decir, empezar la lectura desde la posición indicada
 
+## clase 9
+
+- parámetro: durante la definición de la función
+- argumento: durante la llamada de la función
+
+```py
+de nombre(parametro): # parámetro
+  sentencias
+  return <>
+
+nombre(a) # a es el argumento que se le pasa a la función
+```
+
+## clase 11 - excepciones
+
+
+
 ## clase 12-13-14
 
 ### clases
+
+- `clase` elemento principal
+- `atributos` características
+- `métodos` funcionalidades
+
+Tipos de relaciones:
+
+- agregación / composición: entre clase TODO y una clase PARTE que es componente de todo. la clase TODO es un objecto _contenedor_, que contiene otros objetos. Por ejemplo, una clase _auto_ (objeto contenedor) contiene adentro una clase _motor_ con sus características (#--)
+- asociación: relación semántica _entre objetos no relacionados_. una clase usa a otra clase para realizar algo. clase _persona_ tiene una clase _auto_ (<--)
+- generalización / especialización
+
+Cardinalidad. indicar el número de objetos que están en relación. las personas pueden tener muchos autos (`*..*`), pero un auto solo puede tener un motor y el motor solo puede pertener a un auto (`1 1`).
 
 #### crear una clase
 
@@ -160,9 +189,21 @@ class Persona:
     print('hola')
 ```
 
-#### encapsulamiento
+#### herencia
 
+proceso mediante el cual se puede crear una clase hija que hereda de una clase padre, compartiendo sus métodos y atributos. la clase hija puede sobreescribir los métodos o atributos, o incluso definir unos nuevos.
 
+```py
+class Animal:
+  pass
+
+# creamos una clase hija que hereda de la clase padre
+class Perro(Animal):
+  pass
+
+```
+
+Filosofía DRY: don't repeat yourself
 
 ## clase 15
 
