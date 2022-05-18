@@ -18,7 +18,7 @@ colores = {'amarillo':'yellow','azul':'blue','verde':'green'}
 - colores.get(): colores.get('rojo','no hay rojo')
 - colores.items(): crea una lista con clave y valor
 
-````py
+```py
 colores.items()
 # dict_items([('amarillo','yellow'),('azul','blue'),('verde','green')])
 for clave, valor in colores.items():
