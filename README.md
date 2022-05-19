@@ -205,9 +205,181 @@ class Perro(Animal):
 
 Filosofía DRY: don't repeat yourself
 
+#### super
+
+la función super nos permite acceder a los argumentos de la clase padre desde una de sus hijas
+
+```py
+class Animal:
+    def __init__(self, especie, edad):
+        self.especie = especie
+        self.edad = edad
+    def hablar(self):
+        pass
+
+    def moverse(self):
+        pass
+
+    def describeme(self):
+        print("Soy un Animal del tipo", type(self).__name__)
+```
+
+Para agregar un parámetro nuevo a nuestra clase perro, tenemos dos alternativas, una verbosa, la de toda la vida donde declaramos los atributos de la clase padre o podemos usar `super` (para DRY) de esta manera:
+
+```py
+class Perro(Animal):
+  def __init__(self,especie,edad,dueno):
+    # alternativa caca, verbosa
+    #self.especie = especie
+    #self.edad = edad
+    #self.dueño = dueno
+    super().__init__(especie,edad)
+    self.dueno = dueno
+```
+
+con `super().__init__(especie,edad)` llamamos a esos atributos y no tenemos que volver a declararlos - después simplemente le agregamos el nuevo atributo
+
+#### herencia múltiple
+
+una clase hereda de varias clases padre en vez de una sola. dos maneras de hacerlo:
+
+```py
+# 1
+class Clase1:
+  pass
+class Clase2:
+  pass
+class Clase3(Clase1,Clase2):
+  pass
+
+# 2
+class Clase1:
+  pass
+class Clase2(Clase1):
+  pass
+class Clase3(Clase2):
+  pass
+```
+
+qué pasa si llamo a un método que todas las clases tienen en común? cuál se llama? la función MRO (Method Resolution Order) - esta función nos devuelve una tupla con el orden de búsqueda de los métodos: se empieza en la propia clase y se va subiendo hasta la clase padre, de izquierda a derecha.
+
+```py
+print(Clase3.__mro__)
+# (<class '__main__.Clase3'>, <class '__main__.Clase2'>, <class '__main__.Clase1'>, <class 'object'>)
+```
+
+al final de la tupla vemos la clase object. en realidad todas las clases en python heredan de una clase genérica object, aunque no lo especifiquemos explícitamente.
+
+El orden de herencia depende del orden en el que las clases están pasadas (no es lo mismo `Clase4(Clase1,Clase2,Clase3)` que `Clase4(Clase2,Clase3,Clase1)`)
+
+#### polimorfismo
+
+los objetos pueden tomar distintas formas, es decir, los objetos de clases diferentes pueden ser accedidos usando la misma interfaz y mostrar un comportamiento distinto (_distintas formas_) según cómo sean accedidos. una operación puede presentar distintos comportamientos en distintas instancias. el comportamiento depende de los tipos de datos utilizados en la operación - este concepto está muy relacionado con la herencia.
+
+```py
+class Persona():
+  def __init__(self):
+    self.cedula = 12345678
+  def mensaje(self):
+    print('mensaje desde la clase persona')
+
+class Obrero(Persona):
+  def __init__(self):
+    self.__especialista = 1
+  def mensaje(self): # esta es una instancia de polimorfismo
+    print('mensaje desde la clase obrero')
+```
+
+Podemos sustituir un método proveniente de la clase padre en la clase hija. tiene que ser un método con el mismo nombre y parámetros pero debe tener otra conducta.
+
+#### duck typing
+
+si un objeto tiene los métodos que nos interesan, nos basta, siendo su tipo irrelevante. a python le da igual los tipos de los objetos, lo único que importa son los métodos
+
+```py
+class Pato:
+  def hablar(self):
+    print('cuac')
+
+p = Pato()
+p.hablar()
+# cuac
+```
+
+no es necesario especificar los tipos, simplemente decimos que el parámetro de entrada tiene el nombre `p`
+
+```py
+def llama_hablar(x):
+  x.hablar()
+
+llamar_hablar(p)
+# cuac
+```
+
+cuando llamemos a la función, le da igual el tipo al que pertenece `p` siempre y cuando tenga la función `hablar()`
+
+_lo importante son los métodos, no los tipos de las clases_ - podemos ver también duck typing en la función _len()_ y en el uso del operador `*`
+
 ## clase 15
 
+para pasarle argumentos a nuestro programa tenemos que agregar el módulo `sys`
+
+```py
+import sys
+print(sys.argv) # para ver los argumentos
+```
+
+un módulo es un archivo que consta de código python. en realidad es un objeto de python con atributos de nombres arbitrarios que puede enalzar y luego referenciar.
+
+para llamar a un módulo desde otro archivo, si está en el mismo directorio:
+
+```py
+#import <nombre del archivo>
+import funciones_matematicas
+
+funciones_matematicas.sumar(4,11)
+
+# importar función específica
+from funciones_matematicas import suma
+# importar todas *
+```
+
+#### paquetes
+
+carpetas para organizar módulos por categorías. creamos una carpeta y dentro de ella tener un archivo llamado `__init__.py`
+
+
+
+
 ### módulos y paquetes
+
+## clase 17 django 1 - 18/05/2022
+
+patrón `mvc` - arquitectura que nos permite tener una organización adecuada de nuestro código
+
+- modell: maneja los datos y el acceso a ellos
+- view: lo que el usuario ve
+- controller: interacción los datos y lo que el usuario, lógica de negocio; 
+
+el usuario usa el _controlador_ que actualiza el _modelo_ y actualiza la _vista_ que es lo que ve el usuario
+
+nosotros no vamos a manejar más en la interacción del controlador y el modelo
+
+django modifica el MVC por el MTV; modelo, template, view
+
+django: según la URL tendremos una vista; el template tiene la estructura del controlador; la vista interactua directamente con el template y con el modelo. página12
+
+- `django-admin startproject <nombreProyecto>`
+- `python manage.py migrate`
+- `python manage.py runserver`
+
+
+
+
+
+
+
+
 
 
 
