@@ -306,7 +306,7 @@ p.hablar()
 # cuac
 ```
 
-no es necesario especificar los tipos, simplemente decimos que el parámetro de entrada tiene el nombre `p` 
+no es necesario especificar los tipos, simplemente decimos que el parámetro de entrada tiene el nombre `p`
 
 ```py
 def llama_hablar(x):
@@ -322,7 +322,64 @@ _lo importante son los métodos, no los tipos de las clases_ - podemos ver tambi
 
 ## clase 15
 
+para pasarle argumentos a nuestro programa tenemos que agregar el módulo `sys`
+
+```py
+import sys
+print(sys.argv) # para ver los argumentos
+```
+
+un módulo es un archivo que consta de código python. en realidad es un objeto de python con atributos de nombres arbitrarios que puede enalzar y luego referenciar.
+
+para llamar a un módulo desde otro archivo, si está en el mismo directorio:
+
+```py
+#import <nombre del archivo>
+import funciones_matematicas
+
+funciones_matematicas.sumar(4,11)
+
+# importar función específica
+from funciones_matematicas import suma
+# importar todas *
+```
+
+#### paquetes
+
+carpetas para organizar módulos por categorías. creamos una carpeta y dentro de ella tener un archivo llamado `__init__.py`
+
+
+
+
 ### módulos y paquetes
+
+## clase 17 django 1 - 18/05/2022
+
+patrón `mvc` - arquitectura que nos permite tener una organización adecuada de nuestro código
+
+- modell: maneja los datos y el acceso a ellos
+- view: lo que el usuario ve
+- controller: interacción los datos y lo que el usuario, lógica de negocio; 
+
+el usuario usa el _controlador_ que actualiza el _modelo_ y actualiza la _vista_ que es lo que ve el usuario
+
+nosotros no vamos a manejar más en la interacción del controlador y el modelo
+
+django modifica el MVC por el MTV; modelo, template, view
+
+django: según la URL tendremos una vista; el template tiene la estructura del controlador; la vista interactua directamente con el template y con el modelo. página12
+
+- `django-admin startproject <nombreProyecto>`
+- `python manage.py migrate`
+- `python manage.py runserver`
+
+
+
+
+
+
+
+
 
 
 
