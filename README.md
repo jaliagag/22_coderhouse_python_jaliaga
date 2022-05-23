@@ -320,7 +320,7 @@ cuando llamemos a la función, le da igual el tipo al que pertenece `p` siempre 
 
 _lo importante son los métodos, no los tipos de las clases_ - podemos ver también duck typing en la función _len()_ y en el uso del operador `*`
 
-## clase 15
+## clase 15 - módulos y paquetes
 
 para pasarle argumentos a nuestro programa tenemos que agregar el módulo `sys`
 
@@ -348,10 +348,191 @@ from funciones_matematicas import suma
 
 carpetas para organizar módulos por categorías. creamos una carpeta y dentro de ella tener un archivo llamado `__init__.py`
 
+```console
+clase15
+├── menu.py 
+├── mi_primer_paquete
+│   ├── __init__.py
+│   ├── modulo1.py
+│   ├── modulo2.py
+│   └── __pycache__
+│       ├── __init__.cpython-39.pyc
+│       ├── modulo1.cpython-39.pyc
+│       └── modulo2.cpython-39.pyc
+```
+
+Desde menú, llamamos al paquete:
+
+```py
+from mi_primer_paquete.modulo1 import Persona
+from mi_primer_paquete.modulo2 import llamado_modulo2
 
 
+persona1 = Persona('octavio','aliaga')
+print(persona1)
 
-### módulos y paquetes
+llamado_modulo2()
+```
+
+##### paquetes redistribuibles
+
+```py
+from setuptools import setup
+
+setup(
+    name='jalaiaga_primer_paquete',
+    version='1.0',
+    description='clase 15',
+    author='jaliaga',
+    authoer_email='jmfaliaga@gmail.com',
+
+    packages=['mi_primer_paquete']
+
+)
+```
+
+```console
+$ 
+.
+├── mi_primer_paquete
+│   ├── __init__.py
+│   ├── modulo1.py
+│   ├── modulo2.py
+│   └── __pycache__
+│       ├── __init__.cpython-39.pyc
+│       ├── modulo1.cpython-39.pyc
+│       └── modulo2.cpython-39.pyc
+└── setup.py
+$ python setup.py sdit
+
+$
+.
+├── dist
+│   └── jalaiaga_primer_paquete-1.0.tar.gz
+├── jalaiaga_primer_paquete.egg-info
+│   ├── dependency_links.txt
+│   ├── PKG-INFO
+│   ├── SOURCES.txt
+│   └── top_level.txt
+├── mi_primer_paquete
+│   ├── __init__.py
+│   ├── modulo1.py
+│   ├── modulo2.py
+│   └── __pycache__
+│       ├── __init__.cpython-39.pyc
+│       ├── modulo1.cpython-39.pyc
+│       └── modulo2.cpython-39.pyc
+└── setup.py
+```
+
+Usar el paquete que nos pasó alguien: nos paramos en el mismo directorio que el archivo que nos pasaron y ejecutamos: `pip3 install <nombre_paquete.tar.gz>`
+
+#### paquetes externos
+
+##### Collections
+
+el módulo collections nos ayuda a completar y manipular las estructuras de datos de forma eficiente - `from collections import *` - _namedtuple_ (`from collections import namedtuple`) permite añadir nombres explícitos a cada elemento de una tupla para hacer que estos significados sean claros en el programa:
+
+```py
+from collections import namedtuple
+
+Fish = namedtuple('Fish',['name','species','tank']) # << crea una clase
+
+miPrimerPez = Fish('sam','tiburón','tanque grande')
+print(miPrimerPez)
+# Fish(name='sam', species='tiburón',tank='tanque grande')
+# transformar tupla en diccionario
+print(miPrimerPez._asdict())
+# {'name':'sam', 'species':'tiburón','tank':'tanque grande'}
+```
+
+##### Counter
+
+subclase de diccionar utilizada para realizar cuentas con diccionarios y listas
+
+```py
+from collections import Counter
+
+l = [1,2,3,4,1,2,3,1,2,1]
+
+print(Counter(l))
+
+#Counter({1: 4, 2: 3, 3: 2, 4: 1})
+
+estudiantes = 'jose paula simba laura brenda nadia jose'
+print(Counter(estudiantes))
+print(Counter(estudiantes.split()))
+
+#Counter({'a': 8, ' ': 6, 's': 3, 'e': 3, 'j': 2, 'o': 2, 'u': 2, 'l': 2, 'i': 2, 'b': 2, 'r': 2, 'n': 2, 'd': 2, 'p': 1, 'm': 1})
+#Counter({'jose': 2, 'paula': 1, 'simba': 1, 'laura': 1, 'brenda': 1, 'nadia': 1})
+```
+
+<https://docs.hektorprofe.net/python/modulos-y-paquetes/modulo-collections/>
+
+##### Datetime
+
+```py
+from datetime import datetime
+
+dt = datetime.now()
+
+print(dt)
+print(dt.year)
+print(dt.month)
+print(dt.day)
+print(dt.hour)
+print(dt.minute)
+print(dt.second)
+print(dt.microsecond)
+```
+
+crear una fecha usando el constructor de esta clase
+
+```py
+dt = datetime(2000,1,1)
+print(dt)
+# 2000-01-01 00:00:00
+```
+
+cambiar uno de los parámetros: replace
+
+```py
+dt = dt.replace(year=3999)
+print(dt)
+
+datetime.datetime(3000,1,1,0,0)
+```
+
+Formateando la forma en que presentamos la imagen:
+
+```py
+dt.strftime("%A %d %B %Y %I:%M")
+Monday 23 May 2022 09:06
+```
+
+- %A - día
+- %d - número de día
+- %B - mes
+- %Y - año
+- %I - hora
+- %M - minuto
+
+con la función `timedelta()` se pueden sumar o restar fechas:
+
+```py
+from datetime import datetime,timedelta
+
+dt = datetime.now()
+# generamos 14 días con 4 horas y 1000 segundos de tiempo
+t = timedelta(days=14,hours=4,seconds=1000)
+# lo operamos con el datetime de la fecha y hora actual
+dentro_de_dos_semanas = dt + t
+```
+
+
+##### Math
+##### Random
+
 
 ## clase 17 django 1 - 18/05/2022
 
